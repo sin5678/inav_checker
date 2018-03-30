@@ -1,15 +1,15 @@
 # inav_checker
-inav config safety checker for quadcopter
-###install php first
+### inav config safety checker for quadcopter
+#### install php first
 
-run "dump" command in INAV Configurator
-copy command output to a txt file ,eg config.txt
-run php config.txt
-
-$ php inav_chk.php config.txt
-!!! do not USE ARM channel to arm, use stick to arm
-!!! failsafe_throttle_low_delay not 0,you may got disarm in air when failsafe, and your throttle is lowest !
-failsafe_procedure  failsafe 设置为: SET-THR
+1. run "dump" command in INAV Configurator
+2. copy command output to a txt file ,eg config.txt
+3. run php config.txt
+    
+> $ php inav_chk.php config.txt
+> !!! do not USE ARM channel to arm, use stick to arm
+> !!! failsafe_throttle_low_delay not 0,you may got disarm in air when failsafe, and your throttle is lowest !
+> failsafe_procedure  failsafe 设置为: SET-THR
 !!! failsafe procedure not RTH !
 failsafe_stick_threshold  退出failsafe 杆量为: 50
 !!! disarm_kill_switch is ON, better disable it
@@ -28,3 +28,4 @@ nav_rth_alt_mode  返航模式: 最后高度返航
 nav_rth_altitude  自动返航高度: 10
 max_angle_inclination_rll   横滚最大角度 :30 度
 max_angle_inclination_pit   俯仰最大角度 :30 度
+<code>
