@@ -1,6 +1,6 @@
 <?php
 $param = file_get_contents($argv[1]);
-if(!strlen($parm))
+if(!strlen($param))
 {
     echo "error open file \n";
 }
@@ -8,6 +8,7 @@ if(!strlen($parm))
 $param = str_replace("\r", "", $param);
 $param = explode("\n", $param);
 
+echo "!!! do not USE ARM channel to arm, use stick to arm \n";
 foreach($param as $a)
 {
     if(strpos($a, "set") === 0)
@@ -31,17 +32,25 @@ function check($param, $value)
         echo "nav_use_midthr_for_althold is OFF\t\t";
         echo "不使用油门中位来定高 \n";
     }
+    if($param == "disarm_kill_switch" && $value == "ON")
+    {
+        echo "!!! disarm_kill_switch is ON, better disable it \n";
+    }
+    if($param == "failsafe_throttle_low_delay" && $value != 0)
+    {
+        echo "!!! failsafe_throttle_low_delay not 0,you may got disarm in air when failsafe, and your throttle is lowest !\n";
+    }
     if($param == "nav_extra_arming_safety" && $value == "OFF")
     {
         echo "nav_extra_arming_safety is OFF\t\t电机安全启动功能被关闭\n";
     }
-    if($param == "nav_user_control_mode" && $value == "ATTI")
-    {
-        echo "nav_user_control_mode is ATTI\t\t定点模式不能平移 建议设置成 CRUISE \n";
-    }
     if($param == "nav_auto_speed" )
     {
         echo "nav_auto_speed\t\t自动飞行速度（返航 ， 航点）:". intval($value)/100 . "m/s \n";
+        if(intval($value)/100 < 10)
+        {
+            echo "!!! maybe too slow ！\n";
+        }
     }
     if($param == "nav_auto_climb_rate")
     {
@@ -50,6 +59,10 @@ function check($param, $value)
     if($param == "nav_manual_speed")
     {
         echo "nav_manual_speed   最大手动飞行速度 ：".intval($value)/100 . "m/s \n";
+        if(intval($value)/100 < 10)
+        {
+            echo "!!! maybe too slow！\n";
+        }
     }
     if($param == "nav_manual_climb_rate")
     {
@@ -69,11 +82,11 @@ function check($param, $value)
     }
     if($param == "nav_rth_climb_first" && $value == "OFF")
     {
-        echo "nav_rth_climb_first is OFF  未设置 返航先爬升 \n";
+        echo "!!! nav_rth_climb_first is OFF  未设置 返航先爬升 \n";
     }
     if($param == "nav_rth_allow_landing" && $value == "OFF")
     {
-        echo "nav_rth_allow_landing is OFF  自动返航后 不允许降落\n";
+        echo "!!! nav_rth_allow_landing is OFF  自动返航后 不允许降落\n";
     }
     if($param == "nav_rth_alt_mode")
     {
@@ -88,16 +101,26 @@ function check($param, $value)
     if($param == "max_angle_inclination_rll")
     {
         echo "max_angle_inclination_rll   横滚最大角度 :".intval($value)/10 . " 度 \n";
+        if(intval($value)/10 < 10)
+        {
+            echo "!!! maybe too small roll angle\n";
+        }
     }
     if($param == "max_angle_inclination_pit")
     {
         echo "max_angle_inclination_pit   俯仰最大角度 :".intval($value)/10 . " 度 \n";
+        if(intval($value)/10  < 10)
+        {
+            echo "!!! maybe too small pitch angel \n";
+        }
     }
     if($param == "failsafe_procedure")
     {
         echo "failsafe_procedure  failsafe 设置为: $value  \n";
         if($value != "RTH")
-            echo "请设置为自动返航！ RTH\n";
+        {
+            echo "!!! failsafe procedure not RTH ! \n";
+        }
     }
     if($param == "failsafe_stick_threshold")
     {
