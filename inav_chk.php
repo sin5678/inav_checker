@@ -136,7 +136,7 @@ function check($param, $value)
         $msg = "max_angle_inclination_pit  :".intval($value)/10 . "  ";
         if(intval($value)/10  < 10)
         {
-            echo "!!! ".$msg ."maybe too small pitch angel \n";
+            echo "!!! ".$msg ."maybe too small pitch angle \n";
         }
         else
         {
