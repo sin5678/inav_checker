@@ -8,7 +8,7 @@ if(!strlen($param))
 $param = str_replace("\r", "", $param);
 $param = explode("\n", $param);
 
-echo "!!! do not USE ARM channel to arm, use stick to arm \n";
+echo "!!! do not USE ARM channel to arm, use stick to arm ,this always show ,check it yourself\n";
 foreach($param as $a)
 {
     if(strpos($a, "set") === 0)
