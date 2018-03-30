@@ -104,7 +104,7 @@ function check($param, $value)
     }
     if($param == "nav_rth_alt_mode")
     {
-        echo "nav_rth_alt_mode  RTH mode: ". $value ."\n";
+        echo "nav_rth_alt_mode : ". $value ."\n";
 
     }
     if($param == "nav_rth_altitude")
