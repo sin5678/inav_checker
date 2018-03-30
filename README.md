@@ -6,7 +6,8 @@
 2. copy command output to a txt file ,eg config.txt
 3. run php config.txt
 
-    
+ "!!!" means WARNING    
+ 
 $ php inav_chk.php config.txt  
 !!! do not USE ARM channel to arm, use stick to arm ,this message always show ,check it yourself  
 !!! failsafe_throttle_low_delay not 0,you may got disarm in air when failsafe !  
