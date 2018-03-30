@@ -1,6 +1,6 @@
 # inav_checker
 inav config safety checker for quadcopter
-install php first
+###install php first
 
 run "dump" command in INAV Configurator
 copy command output to a txt file ,eg config.txt
