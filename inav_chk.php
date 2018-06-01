@@ -7,8 +7,47 @@ if(!strlen($param))
 
 $param = str_replace("\r", "", $param);
 $param = explode("\n", $param);
+$is_airmode_enabled = 0;
 
-echo "!!! do not USE ARM channel to arm, use stick to arm ,this message always show ,check it yourself\n";
+foreach($param as $a)
+{
+    if(strpos($a, "feature") === 0)
+    {
+        $a = explode(" ", $a );
+        if($a[1] == "AIRMODE")
+        {
+            $is_airmode_enabled = 1;
+        }
+    }
+}
+if(!$is_airmode_enabled)
+{
+    echo "AIRMODE not enabled , suggest enable it always !\n";
+}
+
+//check aux mode
+foreach($param as $a)
+{
+    if(strpos($a,"aux") === 0)
+    {
+        $a = explode(" ", $a );
+        foreach($a as &$b)
+        {
+            $b = intval($b);
+        }
+        if($a[4] != $a[5] && $a[3] == 1)
+        {
+            if($a[2] == 0) // ARM
+            {
+                echo "!!! do not USE ARM channel to arm, use stick to arm \n";
+                break;
+            }
+        }
+        //var_dump($a);
+    }
+}
+
+
 foreach($param as $a)
 {
     if(strpos($a, "set") === 0)
@@ -161,5 +200,12 @@ function check($param, $value)
             echo "!!! failsafe_stick_threshold is 0 , better use the default value \n";
         else
             echo "failsafe_stick_threshold  : ". intval($value). "\n"; 
+    }
+    if($param == "align_mag")
+    {
+        if($value == "DEFAULT")
+        {
+            echo "!!! align_mag is DEFAULT, your compass may not set correctly \n";
+        }
     }
 }
